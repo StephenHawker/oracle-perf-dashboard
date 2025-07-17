@@ -1,43 +1,67 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Oracle Performance Dashboard
 
-## Available Scripts
+A modern, full-featured dashboard for Oracle (and SQLite-mock) performance analysis. Built with React, Material-UI, and Node.js/Express backend, it provides deep insights into database health, SQL performance, wait events, system metrics, and ORDS REST API activity.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Dashboard**: High-level summary of database health and key metrics
+- **AWR Reports**: Visualize AWR trends, top SQL, and all key metrics (with units)
+- **ASH Analysis**: Active Session History with detailed session and wait event breakdowns
+- **SQL Analysis**: In-depth SQL statement performance, execution stats, and plan details
+- **Wait Events**: Charts and tables for all major wait events, with time waited and counts
+- **System Metrics**: Real-time CPU, memory, I/O, and session metrics with charts and summary cards
+- **ORDS Monitoring**: REST API call tracking, response times, error rates, and status code analytics
+- **Database Config**: Switch between SQLite (mock) and Oracle, configure connection settings
+- **Robust Error Handling**: Graceful error boundaries, timeouts, and clear user feedback
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Quick Start
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. **Install dependencies**
+   ```sh
+   npm install
+   ```
+2. **Run the backend**
+   ```sh
+   npm run server
+   ```
+3. **Run the frontend**
+   ```sh
+   npm start
+   ```
+4. **Access the app**
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### `npm test`
+## Project Structure
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `src/pages/` — All main dashboard pages (AWR, ASH, SQL, Waits, System, ORDS, Config)
+- `src/components/` — Sidebar, error boundaries, and shared UI
+- `src/contexts/` — React context for DB connection and filters
+- `src/services/` — Database service abstraction (SQLite mock, Oracle ready)
+- `src/types/` — TypeScript types for Oracle/ORDS/AWR/ASH data
+- `seed_oracle_perf.js` / `seed_oracle_perf.sql` — Data seeding scripts for SQLite
 
-### `npm run build`
+## Data Sources
+- **SQLite**: Default for development, uses mock/test data
+- **Oracle**: Switch in Database Config (requires Oracle DB and credentials)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage Notes
+- All time and metric units are clearly labeled (e.g., seconds, ms, MB/s)
+- Sidebar navigation covers all analysis pages
+- All tables are sortable and expandable where relevant
+- Error messages and loading states are user-friendly
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Customization
+- Add new metrics or charts by editing the relevant page in `src/pages/`
+- Extend mock data in `src/services/databaseService.ts` or seed scripts
+- Update connection logic in `src/contexts/DatabaseContext.tsx`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## License
+MIT
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+For questions or contributions, open an issue or pull request on this repository.
 
 ## Learn More
 
