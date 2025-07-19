@@ -72,22 +72,31 @@ const AwrReports: React.FC = () => {
     );
   }
 
-  const chartData = snapshots.map(snap => ({
-    time: snap.snapTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
-    dbTime: snap.dbTime / 1000000,
-    cpuTime: snap.dbCpuTime / 1000000,
-    elapsedTime: snap.elapsedTime / 1000000,
-    logicalReads: snap.logical_reads,
-    physicalReads: snap.physical_reads,
-    physicalWrites: snap.physical_writes,
-    userCalls: snap.user_calls,
-    parses: snap.parses,
-    hardParses: snap.hard_parses,
-    sorts: snap.sorts,
-    logons: snap.logons,
-    executes: snap.executes,
-    transactions: snap.transactions
-  }));
+  const chartData = snapshots.map(snap => {
+    let timeString = 'N/A';
+    if (snap.snapTime) {
+      const dateObj = new Date(snap.snapTime);
+      if (!isNaN(dateObj.getTime())) {
+        timeString = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+      }
+    }
+    return {
+      time: timeString,
+      dbTime: snap.dbTime / 1000000,
+      cpuTime: snap.dbCpuTime / 1000000,
+      elapsedTime: snap.elapsedTime / 1000000,
+      logicalReads: snap.logical_reads,
+      physicalReads: snap.physical_reads,
+      physicalWrites: snap.physical_writes,
+      userCalls: snap.user_calls,
+      parses: snap.parses,
+      hardParses: snap.hard_parses,
+      sorts: snap.sorts,
+      logons: snap.logons,
+      executes: snap.executes,
+      transactions: snap.transactions
+    };
+  });
 
   return (
     <Box>

@@ -81,7 +81,7 @@ const OrdsMonitoring: React.FC = () => {
       dateObj = new Date(metric.timestamp);
     }
     return {
-      time: dateObj.toLocaleTimeString(),
+      time: dateObj && !isNaN(dateObj.getTime()) ? dateObj.toLocaleTimeString() : 'N/A',
       responseTime: metric.averageResponseTime,
       requestsPerSec: metric.requestsPerSecond,
       errors: metric.errorsPerSecond,

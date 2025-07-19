@@ -69,54 +69,51 @@ class SQLiteService implements DatabaseService {
   }
 
   async getAshData(filters: DashboardFilters): Promise<AshData[]> {
-    // Return mock data - in real implementation, query SQLite
-    return this.getMockAshData();
+    const res = await fetch('http://localhost:4000/api/ash');
+    if (!res.ok) throw new Error('Failed to fetch ASH data');
+    return await res.json();
   }
 
   async getTopWaitEvents(filters: DashboardFilters): Promise<WaitEvent[]> {
-    return this.getMockWaitEvents();
+    const res = await fetch('http://localhost:4000/api/wait-events');
+    if (!res.ok) throw new Error('Failed to fetch wait events');
+    return await res.json();
   }
 
   async getAwrSnapshots(filters: DashboardFilters): Promise<AwrSnapshot[]> {
-    return this.getMockAwrSnapshots();
+    const res = await fetch('http://localhost:4000/api/awr-snapshots');
+    if (!res.ok) throw new Error('Failed to fetch AWR snapshots');
+    return await res.json();
   }
 
   async getTopSqlStatements(filters: DashboardFilters): Promise<TopSqlAnalysis[]> {
-    return this.getMockTopSqlStatements();
+    const res = await fetch('http://localhost:4000/api/top-sql');
+    if (!res.ok) throw new Error('Failed to fetch Top SQL');
+    return await res.json();
   }
 
   async getOrdsApiCalls(filters: DashboardFilters): Promise<OrdsApiCall[]> {
-    return this.getMockOrdsApiCalls();
+    const res = await fetch('http://localhost:4000/api/ords-api-calls');
+    if (!res.ok) throw new Error('Failed to fetch ORDS API calls');
+    return await res.json();
   }
 
   async getOrdsMetrics(filters: DashboardFilters): Promise<OrdsMetrics[]> {
-    try {
-      const res = await fetch('http://localhost:4000/api/ords-metrics');
-      if (!res.ok) throw new Error('Failed to fetch ORDS metrics');
-      return await res.json();
-    } catch (err) {
-      throw new Error('SQLiteService: ' + (err as Error).message);
-    }
+    const res = await fetch('http://localhost:4000/api/ords-metrics');
+    if (!res.ok) throw new Error('Failed to fetch ORDS metrics');
+    return await res.json();
   }
 
   async getSystemMetrics(filters: DashboardFilters): Promise<SystemMetric[]> {
-    try {
-      const res = await fetch('http://localhost:4000/api/system-metrics');
-      if (!res.ok) throw new Error('Failed to fetch system metrics');
-      return await res.json();
-    } catch (err) {
-      throw new Error('SQLiteService: ' + (err as Error).message);
-    }
+    const res = await fetch('http://localhost:4000/api/system-metrics');
+    if (!res.ok) throw new Error('Failed to fetch system metrics');
+    return await res.json();
   }
 
   async getPerformanceSummary(filters: DashboardFilters): Promise<PerformanceSummary> {
-    try {
-      const res = await fetch('http://localhost:4000/api/performance-summary');
-      if (!res.ok) throw new Error('Failed to fetch performance summary');
-      return await res.json();
-    } catch (err) {
-      throw new Error('SQLiteService: ' + (err as Error).message);
-    }
+    const res = await fetch('http://localhost:4000/api/performance-summary');
+    if (!res.ok) throw new Error('Failed to fetch performance summary');
+    return await res.json();
   }
 
   async getAvailableModules(): Promise<string[]> {

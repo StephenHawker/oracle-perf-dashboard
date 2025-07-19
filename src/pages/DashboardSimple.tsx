@@ -93,12 +93,12 @@ const Dashboard: React.FC = () => {
     .filter(m => m.metricName === 'CPU Usage')
     .slice(0, 20)
     .map(m => ({
-      time: m.timestamp.toLocaleTimeString(),
+      time: m.timestamp ? (new Date(m.timestamp)).toLocaleTimeString() : 'N/A',
       value: m.value,
     }));
 
   const ordsChartData = ordsMetrics.slice(0, 20).map(metric => ({
-    time: metric.timestamp.toLocaleTimeString(),
+    time: metric.timestamp ? (new Date(metric.timestamp)).toLocaleTimeString() : 'N/A',
     responseTime: metric.averageResponseTime,
     requestsPerSec: metric.requestsPerSecond,
     errors: metric.errorsPerSecond,

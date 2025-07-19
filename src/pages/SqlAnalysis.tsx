@@ -106,13 +106,13 @@ const SqlAnalysis: React.FC = () => {
                     </TableCell>
                     <TableCell>{row.module}</TableCell>
                     <TableCell>{row.parsingSchema}</TableCell>
-                    <TableCell>{row.executions.toLocaleString()}</TableCell>
+                    <TableCell>{row.executions?.toLocaleString() || 'N/A'}</TableCell>
                     <TableCell>{formatTime(row.elapsedTime)}</TableCell>
                     <TableCell>{formatTime(row.cpuTime)}</TableCell>
                     <TableCell>{row.avgElapsedTime.toFixed(2)}ms</TableCell>
-                    <TableCell>{row.bufferGets.toLocaleString()}</TableCell>
-                    <TableCell>{row.diskReads.toLocaleString()}</TableCell>
-                    <TableCell>{row.lastActiveTime.toLocaleString()}</TableCell>
+                    <TableCell>{row.bufferGets?.toLocaleString() || 'N/A'}</TableCell>
+                    <TableCell>{row.diskReads?.toLocaleString() || 'N/A'}</TableCell>
+                    <TableCell>{row.lastActiveTime ? new Date(row.lastActiveTime).toLocaleString() : ''}</TableCell>
                   </TableRow>
                   {expandedSql === row.sqlId && (
                     <TableRow>
@@ -142,10 +142,10 @@ const SqlAnalysis: React.FC = () => {
                               Plan Hash: {row.planHashValue}
                             </Typography>
                             <Typography variant="body2">
-                              Rows Processed: {row.rowsProcessed.toLocaleString()}
+                              Rows Processed: {row.rowsProcessed?.toLocaleString() || 'N/A'}
                             </Typography>
                             <Typography variant="body2">
-                              First Load: {row.firstLoadTime.toLocaleString()}
+                              First Load: {row.firstLoadTime ? new Date(row.firstLoadTime).toLocaleString() : ''}
                             </Typography>
                           </Box>
                         </Box>

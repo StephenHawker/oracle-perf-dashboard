@@ -81,32 +81,45 @@ const AshAnalysis: React.FC = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {ashData.map((row) => (
-                <TableRow key={`${row.sessionId}-${row.sampleTime.getTime()}`}>
-                  <TableCell>{row.sessionId}</TableCell>
-                  <TableCell>{row.username}</TableCell>
-                  <TableCell>
-                    <Chip label={row.sqlId} size="small" variant="outlined" />
-                  </TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={row.waitClass} 
-                      size="small" 
-                      color={row.waitClass === 'User I/O' ? 'primary' : 'default'}
-                    />
-                  </TableCell>
-                  <TableCell>{row.waitEvent}</TableCell>
-                  <TableCell>{row.module}</TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={row.sessionState} 
-                      size="small" 
-                      color={row.sessionState === 'ON CPU' ? 'success' : 'warning'}
-                    />
-                  </TableCell>
-                  <TableCell>{row.sampleTime.toLocaleString()}</TableCell>
-                </TableRow>
-              ))}
+              {ashData.map((row, idx) => {
+                // Fallback to index if sampleTime is missing or not unique
+                const key = row.sessionId && row.sampleTime
+                  ? `${row.sessionId}-${new Date(row.sampleTime).getTime()}`
+                  : `row-${row.sessionId || 'unknown'}-${idx}`;
+                let sampleTimeStr = '';
+                if (row.sampleTime) {
+                  try {
+                    const d = new Date(row.sampleTime);
+                    if (!isNaN(d.getTime())) sampleTimeStr = d.toLocaleString();
+                  } catch {}
+                }
+                return (
+                  <TableRow key={key}>
+                    <TableCell>{row.sessionId}</TableCell>
+                    <TableCell>{row.username}</TableCell>
+                    <TableCell>
+                      <Chip label={row.sqlId} size="small" variant="outlined" />
+                    </TableCell>
+                    <TableCell>
+                      <Chip 
+                        label={row.waitClass} 
+                        size="small" 
+                        color={row.waitClass === 'User I/O' ? 'primary' : 'default'}
+                      />
+                    </TableCell>
+                    <TableCell>{row.waitEvent}</TableCell>
+                    <TableCell>{row.module ?? ''}</TableCell>
+                    <TableCell>
+                      <Chip 
+                        label={row.sessionState} 
+                        size="small" 
+                        color={row.sessionState === 'ON CPU' ? 'success' : 'warning'}
+                      />
+                    </TableCell>
+                    <TableCell>{sampleTimeStr}</TableCell>
+                  </TableRow>
+                );
+              })}
             </TableBody>
           </Table>
         </TableContainer>

@@ -76,7 +76,7 @@ const SystemMetrics: React.FC = () => {
           dateObj = new Date(m.timestamp);
         }
         return {
-          time: dateObj.toLocaleTimeString(),
+          time: dateObj && !isNaN(dateObj.getTime()) ? dateObj.toLocaleTimeString() : 'N/A',
           value: m.value,
           unit: m.unit,
         };
